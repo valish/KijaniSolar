@@ -1,4 +1,6 @@
 
+<% @body_id = :logged_in %>
+
 <section id="log-in">
 	<h2 class="module-head">Log in</h2>
 	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>

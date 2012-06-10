@@ -19,7 +19,9 @@
 				</div>
 				<div id="account">
 				  <% if user_signed_in? %>
-				    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete', :class => "btn" %>        
+<!--				    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete', :class => "btn" %>        -->
+						<i class="icon-user"></i> <span class="user_name"><%= current_user.name %>&nbsp; <span>|</span> &nbsp;</span>
+						<%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
 				  <% else %>
 				    <%= link_to 'Login', new_user_session_path, :class => "btn" %>  
 				  <% end %>

@@ -11,17 +11,17 @@
 			</li>
 			<li>Air Conditioning
 				<div class="tgl-btn">
-					<label for="fan"><input type="checkbox" name="fan" id="fan" /><span>Living Room</span></label>
+					<label for="fan"><input type="checkbox" name="fan" id="fan" checked/><span>Living Room</span></label>
 				</div>
 			</li>
-			<li>Livi
+			<li>Living Room
 				<div class="tgl-btn">
-					<label for="washer"><input type="checkbox" name="washer" id="washer" /><span>Washer</span></label>
+					<label for="living_room"><input type="checkbox" name="living_room" id="living_room" checked/><span>Washer</span></label>
 				</div>
 			</li>
-			<li>Dryer
+			<li>Stereo
 				<div class="tgl-btn">
-					<label for="dryer"><input type="checkbox" name="dryer" id="dryer"/><span>Dryer</span></label>
+					<label for="stereo"><input type="checkbox" name="stereo" id="stereo" checked/><span>Stereo</span></label>
 				</div>
 			</li>
 		</ul>
@@ -38,14 +38,18 @@
 
 <section class="chart_module">
 		<h2 class="module-head"><i class="icon-bolt"></i> My Realtime Energy Usage</h2>
-		<div id="status_consuming" class="energy-status"><i class="icon-circle-arrow-down"></i> Consuming more</div> 
-<!--		<div id="status_producing" class="energy-status"><i class="icon-circle-arrow-up"></i> Producing more</div>-->
+		<div id="status_consuming" class="energy-status"><i class="icon-circle-arrow-down"></i> Spending money</div> 
+		<div id="status_producing" class="energy-status"><i class="icon-circle-arrow-up"></i> Saving money</div>
 		<svg id="line_svg"></svg>
 </section>
 
 <div class="row-module">
 	<section id="flow" class="inline-module">
-		asdf
+		<div class="wrap">
+			<h3 class="module-head">Account Summary</h3>
+			<div id="money_text">
+			</div>
+		</div>
 	</section>
 	<section id="achieve" class="inline-module">
 		<div class="wrap">

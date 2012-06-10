@@ -39,7 +39,7 @@ var dryer = [
 ];
 
 var production = [
-0,0,0,0,0,0,2,3,5,7,10,12,12,12,11,10,7,7,6,5,1,0,0,0
+0,0,0,0,0,0,200,300,500,700,1000,1200,1200,1200,1100,1000,700,700,600,500,10,0,0,0
 ];
 var production_domain = _.map(d3.range(24), function(d) {
     return d;
@@ -56,7 +56,7 @@ var stroke_width = 3;
 var arc = d3.svg.arc();
 var donut = d3.layout.pie();
 
-var update_lines = function(g) {
+kijani.update_lines = function(g) {
     //need the element to get style
     var sw = parseInt(g.style("width"), 10);
     var sh = parseInt(g.style("height"), 10);
@@ -70,18 +70,17 @@ var update_lines = function(g) {
         .attr("width", sw-60)
         .attr("height", sh*2);
 
-    //var y_max = d3.max(consumption);
-    var y_max = 40;
+    var y_max = d3.max([d3.max(consumption_data), d3.max(production_data)]);
+    //var y_max = 40;
 
     var y_range = sh;
     var x_range = sw;
     var y_scale = d3.scale.linear()
         .domain([0, y_max])
-        .range([y_range, 0]);
+        .range([y_range, 10]);
     var bar_y_scale = d3.scale.linear()
         .domain([0, y_max])
         .range([0, y_range]);
- 
         
     var x_scale = d3.scale.linear()
         .domain([0,24])
@@ -98,6 +97,7 @@ var update_lines = function(g) {
      
     //process_data();
     var lines = g.select(".lines");
+
 
     line_transform_x = x_range - 100;
     //line_transform_y = y_range - 10;
@@ -136,6 +136,7 @@ var update_lines = function(g) {
         .attr("d", line)
         .attr("stroke-linecap", "round");
 
+
     //add a new bar
     var bars = g.select(".lines")
         .selectAll("rect.bar")
@@ -169,17 +170,29 @@ var update_lines = function(g) {
 
 };
 
-var update_text = function() {
+kijani.update_text = function() {
     //update the status indicator
     //#status_producing  
     //#status_consuming
     var d = bars_data[bars_data.length-num_forecast];
+    var dm1 = bars_data[bars_data.length-num_forecast-1];
     if(d.good) {
         d3.select("#status_producing").style("display", "")
-       // d3.select("#status_consuming").style("display", "none")
+        d3.select("#status_consuming").style("display", "none")
     } else {
         d3.select("#status_consuming").style("display", "")
-       // d3.select("#status_producing").style("display", "none")
+        d3.select("#status_producing").style("display", "none")
+    }
+
+    if(!dm1.good && d.good) {
+        console.log("changed from bad to good!");
+        var amount = Math.abs(kijani.saving - kijani.cost);
+        amount = d3.format(".2g")(amount);
+        var msg = "I just went net energy positive! That is an energy surplus worth $" + amount + "/kWh #cleanweb";
+        console.log(msg);
+        $.get("http://localhost:8000/tweet?msg=" + msg, function(data) {
+            console.log("tweet response", data);
+        });
     }
     //
 };
@@ -195,7 +208,7 @@ kijani.update_pie = function(g) {
     
     arc.outerRadius(r);
     var pie_data = _.map(kijani.sensors, function(d,i) {
-        console.log(d.current, d.on)
+        //console.log(d.current, d.on)
         return d.current * d.on;
     });
 
@@ -262,8 +275,8 @@ var make_ui = function(g) {
         .style("stroke-width", stroke_width)
         .on("click", function(d,i) {
             d.on = !d.on;
-            forecast();
-            update_lines(g);
+            kijani.forecast();
+            kijani.update_lines(g);
             //update_pie(g);
             d3.select(this)
                 .style("fill", button_colors[d.on * 1]);
@@ -290,7 +303,7 @@ for(k;k<now;k++) {
 
 var num_forecast = 4;
 
-var new_production = function(np) {
+kijani.new_production = function(np) {
     production_data.push(np);
 
     production_forecast = production_forecast.slice(0, production_data.length-1);
@@ -300,7 +313,7 @@ var new_production = function(np) {
     }
 };
 
-var new_data = function(nd) {
+kijani.new_data = function(nd) {
     currents = nd;
     var j = 0;
     var consume = 0;
@@ -313,10 +326,10 @@ var new_data = function(nd) {
     });
     consumption_data.push(consume);
 
-    forecast();
+    kijani.forecast();
 };
 
-var forecast = function() {
+kijani.forecast = function() {
     var j = 0;
     var consume = 0;
     var consumeoo = 0;
@@ -405,7 +418,7 @@ kijani.init = function(g) {
     };
 
     init_lines();
-    update_lines(g);
+    kijani.update_lines(g);
 
     //update_pie(g);
 
@@ -415,31 +428,86 @@ kijani.init = function(g) {
 //tributary.dt = 1;
 var myt = 0;
 var k = 0;
-var sim_t = 0;
+var sim_t = 60 * 8;
+var dt = 6; //6 minutes every reading (we do 1 reading per second)
+
 kijani.run = function(g,t) {
     //every 1 second lets let 6 minutes pass
     //seems to be every 2 seconds
     //if(myt%60 === 0 && k < 24) {
-    
-    sim_t += 6; //number of simulation minutes to advance
-    new_production(production_scale(sim_t/60));
-    new_data([heater[k], living_room[k], washer[k], dryer[k]]);
-    update_lines(g);
-    k++;
-    //console.log(myt%60, k);
+    kijani.get_data(g);
+    kijani.get_price();
 
-    //update the text
-    update_text();
+        //console.log(myt%60, k);
+   //new_data([heater[k], living_room[k], washer[k], dryer[k]]);
+    //k++;
+
     //}
     //myt++;
 
 };
 
+//get_data(d3.select("#line_svg"))
+
+kijani.get_data = function(g) {
+    $.get("http://localhost:8000/read", function(data) {
+        var json = JSON.parse(data);
+        //console.log(json);
+        sim_t += dt; //number of simulation minutes to advance
+        kijani.new_production(production_scale(sim_t/60));
+
+        var h = parseInt(json.report.heater.measured_power);
+        var lr = parseInt(json.report.living_room.measured_power);
+        var w = parseInt(json.report.washer.measured_power);
+        var d = parseInt(json.report.dryer.measured_power);
+
+        console.log("new data:", h, lr, w,d);
+
+        kijani.new_data([h, lr, w, d]);
+        kijani.update_lines(g);
+        //update the text
+        kijani.update_text();
+    });
+
+
+}
+
+kijani.get_price = function() {
+    var date = new Date("2012-06-09T11:25:00.0-0700");
+    date.setHours(sim_t / 60);
+    date.setMinutes(sim_t % 60); 
+    console.log("DATE", date.toJSON());
+    $.get("http://api.genability.com/rest/public/prices/522?appId=4101b793-c033-4732-8ce1-e196f2ddf450&appKey=e9925810-6812-4719-bff0-71d9109dd951&fromDateTime=" + date.toJSON(), function(data) {
+        //console.log("price data", data);
+        var results = data.results;
+        var tarrif = _.find(results, function(d) {
+            return d.chargeType === "CONSUMPTION_BASED";
+        })
+        var rate = tarrif.rateAmount; //rate in kWh / minutes
+        //console.log("rate",rate);
+        //current consumption
+        var consuming = consumption_data[consumption_data.length-1] * 10 / 1000; //6 minutes means
+        kijani.cost = consuming * rate;
+        //console.log("cost kwh:", cost)
+        
+        var producing = production_data[production_data.length-1] * 10 / 1000; //6 minutes means
+        kijani.saving = producing * rate;
+        //console.log("saving:", saving);
+
+        var format = d3.format(".3g");
+        var money_text = d3.select("#money_text")
+        .html("I'm paying <span class='losing_money'>$" + 
+            format(kijani.cost) + "/kWh</span> right now. My Solar panels are saving me <span class='saving_money'>$" + 
+            format(kijani.saving) + "/kWh</span>");
+    })
+}
+
+    
 kijani.flip = function(id) {
     var sensor = _.find(kijani.sensors, function(d) {
         return d.id === id;
-    })
+    });
     sensor.on = !sensor.on;
-}
+};
 
 }
