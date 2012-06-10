@@ -1,0 +1,44 @@
+
+<% @body_id = :logged_in %>
+<aside id="panel">
+	<div class="wrap">
+		<h2 class="module-head"><i class="icon-dashboard"></i> My Appliances</h2>
+		<ul class="appliances iphone-toggle-buttons">
+			<li>Heater
+				<div class="tgl-btn">
+					<label for="heater"><input type="checkbox" name="heater" id="heater" checked/><span>Heater</span></label>
+				</div>
+			</li>
+			<li>Living Room
+				<div class="tgl-btn">
+					<label for="living_room"><input type="checkbox" name="living_room" id="living_room" checked/><span>Living Room</span></label>
+				</div>
+			</li>
+			<li>Washer
+				<div class="tgl-btn">
+					<label for="washer"><input type="checkbox" name="washer" id="washer" /><span>Washer</span></label>
+				</div>
+			</li>
+			<li>Dryer
+				<div class="tgl-btn">
+					<label for="dryer"><input type="checkbox" name="dryer" id="dryer"/><span>Dryer</span></label>
+				</div>
+			</li>
+		</ul>
+		<div class="pie-crust">
+			<svg id="pie_svg"></svg>
+		</div>
+		<div class="actions">
+			<button class="btn btn-success">Apply Changes</button>
+			<button class="btn">Cancel</button>
+		</div>
+	</div>
+</aside>
+
+<section class="chart_module">
+		<h2 class="module-head"><i class="icon-bolt"></i> My Realtime Energy Usage</h2>
+		<div id="status_consuming" class="energy-status"><i class="icon-circle-arrow-down"></i> Consuming More</div>
+		<div id="status_producing" class="energy-status"><i class="icon-circle-arrow-up"></i> Producing More</div>
+		<svg id="line_svg"></svg>
+</section>
+

@@ -1,0 +1,23 @@
+
+<section id="vcc-splash">
+	<div class="vcc-col"></div>
+	<div class="vcc-col"></div>
+	<div class="vcc-col"></div>
+</section>
+
+<div class="row">
+	<section id="description">
+		
+	</section>
+	<section id="sign-up">
+		<h2>Sign up to learn more</h2>
+		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+		<%= devise_error_messages! %>
+		<%= f.text_field :name, :placeholder => "Full Name", :autocomplete => :off %>
+	  <%= f.email_field :email, :placeholder => "Email", :autocomplete => :off %>
+		<%= f.password_field :password, :placeholder => "New Password", :autocomplete => :off %>
+	  <%= f.password_field :password_confirmation, :placeholder => "Confirm Password", :autocomplete => :off %>
+		<div><%= f.submit "Sign up" %></div>
+		<% end %>
+	</section>
+</div>
