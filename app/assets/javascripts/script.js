@@ -27,18 +27,45 @@ $(function() {
 /* Toggle Appliances 
 ==========================================================*/
 
-$(function(){
-	$('#heater').click(function(){
-		alert('toggle heater');
+$(function(){	
+	$('#heater').live("click", function(){
+		if ($(this).attr('checked')) {
+	        $.get("http://10.55.25.14:8000/control?id=lamp_1&state=off", function(data) {
+			    console.log("yay", data);
+			});
+	    } else {
+			$.get("http://10.55.25.14:8000/control?id=lamp_1&state=on", function(data) {
+			    console.log("yay", data);
+			});
+		}	
 	})
-	$('#living_room').click(function(){
-		alert('toggle living room')
+});
+
+$(function(){	
+	$('#fan').live("click", function(){
+		if ($(this).attr('checked')) {
+	        $.get("http://10.55.25.240:8000/control?id=fan&state=on", function(data) {
+			    console.log("yay", data);
+			});
+	    } else {
+			$.get("http://10.55.25.240:8000/control?id=fan&state=off", function(data) {
+			    console.log("yay", data);
+			});
+		}	
 	})
-	$('#washer').click(function(){
-		alert('toggle washer')
+});
+
+$(function(){	
+	$('#heater').live("click", function(){
+		if ($(this).attr('checked')) {
+	        $.get("http://10.55.25.14:8000/control?id=lamp_1&state=on", function(data) {
+			    console.log("yay", data);
+			});
+	    } else {
+			$.get("http://10.55.25.14:8000/control?id=lamp_1&state=off", function(data) {
+			    console.log("yay", data);
+			});
+		}	
 	})
-	$('#dryer').click(function(){
-		alert('toggle dryer')
-	})
-})
+});
 

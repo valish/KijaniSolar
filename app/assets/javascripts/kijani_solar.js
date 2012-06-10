@@ -176,10 +176,10 @@ var update_text = function() {
     var d = bars_data[bars_data.length-num_forecast];
     if(d.good) {
         d3.select("#status_producing").style("display", "")
-        d3.select("#status_consuming").style("display", "none")
+       // d3.select("#status_consuming").style("display", "none")
     } else {
         d3.select("#status_consuming").style("display", "")
-        d3.select("#status_producing").style("display", "none")
+       // d3.select("#status_producing").style("display", "none")
     }
     //
 };

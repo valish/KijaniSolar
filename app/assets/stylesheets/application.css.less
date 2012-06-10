@@ -59,7 +59,7 @@ footer {
 }
 
 .module-head {
-	font-family:@proxBold;
+	font-family:@prox;
 	margin:0;
 }
 
@@ -90,6 +90,11 @@ footer {
 #sign-up {
 	.column(4);
 	padding:14px 0;
+	.btn {
+		font-size:16px;
+		margin:8px 0;
+		padding:14px;
+	}
 }
 
 #log-in {
@@ -133,7 +138,7 @@ footer {
 		position:absolute;
 		top:125px;
 		width:377px;
-		.module-head { margin-top:21px; text-shadow:0 1px #000; }
+		.module-head { color:#fff; margin-top:21px; text-shadow:0 1px #000; }
 		ul.appliances {
 			background:#f5f5f5;
 			.border-radius();
@@ -141,10 +146,8 @@ footer {
 			margin:21px 0;
 			padding:0;
 			li {
-//				border-top:1px solid #fff;
 				border-bottom:1px solid #cfcfcf;
-				cursor:pointer;
-				display:block;
+				font:@proxBold;
 				font-size:21px;
 				list-style-type:none;
 				margin:0;
@@ -153,7 +156,10 @@ footer {
 			}
 		}
 		.actions {
+			background:rgba(0, 0, 0, .3);
 			text-align:center;
+			padding:14px 0;
+			width:100%;
 			button { 
 				font-size:16px;
 				font-weight:bold;
@@ -174,7 +180,9 @@ footer {
 			margin:21px;
 			position:absolute;
 		}
-		#status_producing { background:rgba(0,114,41,.5); display:none; }
+		#status_producing { 
+			background:rgba(0,114,41,.5); 
+		}
 		#status_consuming { background:rgba(193,4,53,.6); }
 		
 		.energy-status {
@@ -207,6 +215,22 @@ footer {
 .row-module {
 	margin-left:391px;
 	margin-bottom:14px;
+}
+
+.inline-module {
+	background:#fff;
+	.border-radius();
+	.box-shadow;
+	min-height:220px;
+	&#flow {
+		float:left;
+		width:60%;
+	}
+	&#achieve {
+		top:0;
+		width:37%;
+		float:right;
+	}
 }
 
 .pie-crust {
@@ -244,7 +268,8 @@ footer {
 				}
 			}
 		}
-		.chart_module {
+		.chart_module,
+		.row-module {
 			margin-left:336px;
 		}
 	}
@@ -260,6 +285,7 @@ footer {
 		#logo img {
 			height:89%;
 		}
+		#account { display:none; }
 	}
 	#main {
 		margin:0;
@@ -269,7 +295,11 @@ footer {
 			margin:0;
 			top:103px;
 			width:100%;
-			.module-head { font-size:16px; text-align:center; }
+			.module-head { 
+				font-size:25px; 
+				text-align:center;
+				i { position:absolute; }
+			}
 			ul.appliances {
 				margin:21px 0;
 				padding:0;
