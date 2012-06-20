@@ -108,9 +108,9 @@ kijani.update_lines = function(g) {
         .duration(line_transform_duration)
         .attr("transform", "translate(" + [x, y] + ")");
 
-    lines.select("#consumption_forecast")
+/*    lines.select("#consumption_forecast")
         .data([consumption_forecast])
-        .attr("d", line)
+        .attr("d", line)*/
             //.attr("transform", null)
             //.transition()
             //.ease("linear")
@@ -128,9 +128,9 @@ kijani.update_lines = function(g) {
     //console.log(consumption_data)
     //consumption_data.shift();
 
-    lines.select("#production_forecast")
+/*    lines.select("#production_forecast")
         .data([production_forecast])
-        .attr("d", line);
+        .attr("d", line);*/
     lines.select("#production_data")
         .data([production_data])
         .attr("d", line)
