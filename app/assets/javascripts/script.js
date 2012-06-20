@@ -24,11 +24,31 @@ $(function() {
 });
 
 
-/* Toggle Appliances 
+/* Default Appliance States
+==========================================================*/
+
+$(function(){	
+	$.get("http://10.55.25.14:8000/control?id=living_room&state=on", function(data) {
+	    console.log("yay", data);
+	});
+	$.get("http://10.55.25.14:8000/control?id=heater&state=on", function(data) {
+	    console.log("yay", data);
+	});
+	$.get("http://10.55.25.14:8000/control?id=washer&state=on", function(data) {
+	    console.log("yay", data);
+	});
+	$.get("http://10.55.25.14:8000/control?id=dryer&state=on", function(data) {
+	    console.log("yay", data);
+	});
+});
+
+
+/* Toggle Appliance States 
 ==========================================================*/
 
 $(function(){	
 	$('#heater').live("click", function(){
+		kijani.flip("heater");
 		if ($(this).attr('checked')) {
 	        $.get("http://10.55.25.14:8000/control?id=lamp_1&state=on", function(data) {
 			    console.log("yay", data);
@@ -49,6 +69,7 @@ $(function(){
 
 $(function(){	
 	$('#fan').live("click", function(){
+		kijani.flip("dryer");
 		if ($(this).attr('checked')) {
 	        $.get("http://10.55.25.14:8000/control?id=fan&state=on", function(data) {
 			    console.log("yay", data);
@@ -69,6 +90,7 @@ $(function(){
 
 $(function(){	
 	$('#living_room').live("click", function(){
+		kijani.flip("living_room");
 		if ($(this).attr('checked')) {
 	        $.get("http://10.55.25.14:8000/control?id=lamp_2&state=on", function(data) {
 			    console.log("yay", data);
@@ -87,25 +109,10 @@ $(function(){
 	})
 });
 
-$(function(){	
-$.get("http://10.55.25.14:8000/control?id=living_room&state=on", function(data) {
-    console.log("yay", data);
-});
-$.get("http://10.55.25.14:8000/control?id=heater&state=on", function(data) {
-    console.log("yay", data);
-});
-$.get("http://10.55.25.14:8000/control?id=washer&state=on", function(data) {
-    console.log("yay", data);
-});
-$.get("http://10.55.25.14:8000/control?id=dryer&state=on", function(data) {
-    console.log("yay", data);
-});
-});
-
-
 
 $(function(){	
 	$('#stereo').live("click", function(){
+		kijani.flip("washer");
 		if ($(this).attr('checked')) {
 	        $.get("http://10.55.25.14:8000/control?id=lamp_3&state=on", function(data) {
 			    console.log("yay", data);

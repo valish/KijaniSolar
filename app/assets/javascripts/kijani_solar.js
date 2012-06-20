@@ -497,7 +497,7 @@ kijani.get_price = function() {
         var format = d3.format(".3g");
         var money_text = d3.select("#money_text")
         .html("I'm paying <span class='losing_money'>$" + 
-            format(kijani.cost) + "/kWh</span> right now. My Solar panels are saving me <span class='saving_money'>$" + 
+            format(kijani.cost) + "/kWh</span> right now. <br/>My Solar panels are saving me <span class='saving_money'>$" + 
             format(kijani.saving) + "/kWh</span>");
     })
 }

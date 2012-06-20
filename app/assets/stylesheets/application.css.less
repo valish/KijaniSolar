@@ -35,7 +35,7 @@ body {
 
 header {
 	.column(12);
-	padding:28px 0;
+	padding:24px 0;
 	height:116px;
 	text-align:center;
 	#account {
@@ -63,7 +63,7 @@ header {
 			left:34px;
 			text-align:left;
 			text-shadow:0 1px #fff;
-			span { opacity:.5; }
+			span { opacity:.8; }
 			i { color:#5e5e5e; }
 		}
 	}
@@ -151,9 +151,8 @@ footer {
 		.border-radius();
 		.box-shadow;
 		color:#fff;
-		min-height:377px;
 		position:absolute;
-		top:125px;
+		top:117px;
 		width:377px;
 		.module-head { color:#fff; margin-top:21px; text-shadow:0 1px #000; }
 		ul.appliances {
@@ -191,7 +190,6 @@ footer {
 		.border-radius();
 		.box-shadow;
 		clear:both;
-		min-height:377px;
 		margin-left:391px;
 		margin-bottom:14px;
 		.module-head {
@@ -199,37 +197,14 @@ footer {
 			margin:21px;
 			position:absolute;
 		}
-		#status_producing { 
-			background:rgba(0,114,41,.5); 
-		}
-		#status_consuming { background:rgba(193,4,53,.6); }
-		
-		.energy-status {
-			.border-radius(34px);
-			color:#fff;
-			font-size:16px;
-			padding:14px 14px 14px 45px;
-			position:absolute;
-			right:55px;
-			margin-top:21px;
-			i {
-				color:#fff;
-				font-size:34px;
-				padding:0;
-				position:absolute;
-				margin-top:-5px;
-				margin-left:-34px;
-				text-shadow:0 1px #7f7f7f;
-			}
-			
-		}
 		#line_svg {
-			height:377px;
+			height:219px;
 			margin:144px 0 0 0;
-			padding:0 0 28px 0;
+			padding:0 0 21px 0;
 		}
 	}
 }
+
 
 #money_text {
 	font-size:21px;
@@ -250,7 +225,7 @@ footer {
 	background:rgba(255, 255, 255, .4);
 	.border-radius();
 	.box-shadow;
-	min-height:220px;
+	min-height:144px;
 	&#flow {
 		float:left;
 		width:60%;
@@ -263,15 +238,38 @@ footer {
 }
 
 .pie-crust {
-	height:289px;
+	height:247px;
 	overflow:hidden;
 }
 #pie_svg {
-	height:277px;
+	height:233px;
 	padding:0;
 	margin:0 0 0 28px;
 }
 
+#status_producing { 
+	background:rgba(0,114,41,.5); 
+}
+#status_consuming { background:rgba(193,4,53,.6); }
+
+.energy-status {
+	.border-radius(34px);
+	color:#fff;
+	font-size:16px;
+	padding:14px 14px 14px 45px;
+	position:absolute;
+	right:55px;
+	margin-top:21px;
+	i {
+		color:#fff;
+		font-size:34px;
+		padding:0;
+		position:absolute;
+		margin-top:-5px;
+		margin-left:-34px;
+		text-shadow:0 1px #7f7f7f;
+	}
+}
 
 .bw1024 {
 	#main {
@@ -314,7 +312,7 @@ footer {
 			background:rgba(255, 255, 255, .4);
 			.border-radius();
 			.box-shadow;
-			min-height:220px;
+			min-height:144px;
 			&#flow {
 				float:left;
 				width:100%;
